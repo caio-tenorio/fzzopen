@@ -1,0 +1,42 @@
+{
+  "applications": {
+    "text_editors": [
+      {"command": "nvim", "label": "NeoVim", "terminal": true, "priority": 1},
+      {"command": "code", "label": "Visual Studio Code", "terminal": false, "priority": 2},
+      {"command": "gedit", "label": "Text Editor (GTK)", "terminal": false, "priority": 3},
+      {"command": "kate", "label": "Kate Editor", "terminal": false, "priority": 4}
+    ],
+    "file_managers": [
+      {"command": "nautilus", "label": "Files (GNOME)", "terminal": false, "priority": 1},
+      {"command": "dolphin", "label": "Dolphin (KDE)", "terminal": false, "priority": 2},
+      {"command": "thunar", "label": "Thunar (XFCE)", "terminal": false, "priority": 3}
+    ],
+    "image_viewers": [
+      {"command": "loupe", "label": "Loupe", "terminal": false, "priority": 1},
+      {"command": "eog", "label": "Eye of GNOME", "terminal": false, "priority": 2},
+      {"command": "feh", "label": "Feh", "terminal": false, "priority": 3}
+    ],
+    "pdf_viewers": [
+      {"command": "okular", "label": "Okular", "terminal": false, "priority": 1},
+      {"command": "evince", "label": "Evince", "terminal": false, "priority": 2},
+      {"command": "zathura", "label": "Zathura", "terminal": true, "priority": 3}
+    ]
+  },
+  "file_types": {
+    "text": ["text/", "application/json", "application/xml", "application/javascript", "application/x-yaml", "application/x-shellscript", "inode/x-empty"],
+    "images": ["image/"],
+    "pdf": ["application/pdf"],
+    "archives": ["application/zip", "application/x-tar", "application/gzip"]
+  },
+  "search": {
+    "excluded_dirs": [".git", "node_modules", ".vscode", ".idea", "dist", "build", "target", ".cache"],
+    "use_fd_if_available": true,
+    "follow_symlinks": true
+  },
+  "interface": {
+    "use_fzf_for_app_selection": true,
+    "fzf_height": "90%",
+    "preview_enabled": true,
+    "show_file_icons": false
+  }
+}
