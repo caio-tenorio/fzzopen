@@ -1,26 +1,22 @@
 # fzzopen
 
-Seletor fuzzy de arquivos/diretórios (via `fzf`) com abertura automática por
-tipo de aplicativo, de acordo com o MIME type do arquivo.
+A fuzzy file and directory picker powered by `fzf`, with application selection
+based on the file's MIME type.
 
-## Estrutura
+## Structure
 
-- **[fish/](fish/)** — implementação ativa: uma função fish nativa. Roda no
-  processo do shell atual, então `cd` para o diretório escolhido funciona
-  de verdade. Veja [fish/README.md](fish/README.md) para instalação e uso.
+- **[fish/](fish/)** — the active implementation: a native fish function.
+  It runs in the current shell process, so `cd` changes the shell's working
+  directory. See [fish/README.md](fish/README.md) for installation and usage.
+- **[python-binary/](python-binary/)** — an abandoned experiment to rewrite the
+  tool in Python and distribute it as a standalone binary using PyInstaller
+  for use with any shell. A subprocess cannot change its parent shell's working
+  directory, which is why the native fish implementation replaced it.
+  Kept for historical reference.
 
-- **[python-binary/](python-binary/)** — experimento abandonado: tentativa
-  de reescrever a ferramenta em Python e distribuí-la como binário
-  standalone (via PyInstaller) para funcionar em qualquer shell. Foi
-  descartado porque um binário roda como subprocesso e não consegue mudar
-  o diretório de trabalho do shell pai — problema que a versão fish não
-  tem, por rodar in-process. Mantido apenas como referência/histórico.
+## Recommendation
 
-## Recomendação
-
-Use a função em [fish/fopen.fish](fish/fopen.fish). Se um dia for retomada
-a ideia de suportar outros shells (bash/zsh), o caminho é o padrão usado
-por ferramentas como `zoxide`/`direnv`/`broot`: um script "burro" que só
-imprime o caminho escolhido, envolvido por uma função fina de shell que
-faz o `cd` no processo atual — não um binário standalone tentando fazer
-isso sozinho.
+Use [fish/fopen.fish](fish/fopen.fish). Future support for other shells such as
+bash or zsh should follow the approach used by tools like `zoxide`, `direnv`,
+and `broot`: a program that prints the selected path, wrapped in a small shell
+function that runs `cd` in the current process.
