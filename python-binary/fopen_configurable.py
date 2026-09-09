@@ -280,6 +280,8 @@ def handle_directory(dirpath):
         return
     
     if app_choice == "cd":
+        # For cd, we need to change to the directory in the current shell
+        # This is tricky from a subprocess, so we'll print the command
         print(f"cd '{dirpath}'")
     elif app_choice == "code":
         run_detached(['code', dirpath])

@@ -5,7 +5,7 @@ VENV := venv
 PYINSTALLER := $(VENV)/bin/pyinstaller
 PIP := $(VENV)/bin/pip
 SOURCE := fopen_configurable.py
-BINARY_NAME := fopen
+BINARY_NAME := fzzopen
 DIST_DIR := dist
 BUILD_DIR := build
 
