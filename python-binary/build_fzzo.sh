@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Script para compilar fopen.py em um binário standalone
+# Script para compilar fzzo.py em um binário standalone
 # Requer PyInstaller: pip install pyinstaller
 
 set -e
 
-echo "🔧 Compilando fopen para binário..."
+echo "🔧 Compilando fzzo para binário..."
 
 # Verifica se PyInstaller está instalado
 if ! command -v pyinstaller &> /dev/null; then
@@ -15,19 +15,19 @@ fi
 
 # Compila o binário
 pyinstaller --onefile \
-            --name fopen \
+            --name fzzo \
             --console \
             --strip \
             --optimize 2 \
-            fopen.py
+            fzzo.py
 
 echo "✅ Compilação concluída!"
-echo "📁 Binário gerado em: dist/fopen"
+echo "📁 Binário gerado em: dist/fzzo"
 echo ""
 echo "Para instalar globalmente:"
-echo "  sudo cp dist/fopen /usr/local/bin/"
+echo "  sudo cp dist/fzzo /usr/local/bin/"
 echo "  # ou"
-echo "  cp dist/fopen ~/.local/bin/"
+echo "  cp dist/fzzo ~/.local/bin/"
 echo ""
 echo "Para testar:"
-echo "  ./dist/fopen"
+echo "  ./dist/fzzo"

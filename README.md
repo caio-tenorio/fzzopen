@@ -1,7 +1,8 @@
 # fzzopen
 
 A fuzzy file and directory picker powered by `fzf`, with application selection
-based on the file's MIME type.
+based on the file's MIME type. The project is named **fzzopen**; run it with
+the **`fzzo`** command.
 
 ## Structure
 
@@ -16,7 +17,7 @@ based on the file's MIME type.
 
 ## Recommendation
 
-Use [fish/fopen.fish](fish/fopen.fish). Future support for other shells such as
+Use [fish/fzzo.fish](fish/fzzo.fish). Future support for other shells such as
 bash or zsh should follow the approach used by tools like `zoxide`, `direnv`,
 and `broot`: a program that prints the selected path, wrapped in a small shell
 function that runs `cd` in the current process.

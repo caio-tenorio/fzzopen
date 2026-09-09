@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fopen - Fuzzy file opener (configurable version)
+fzzopen - Fuzzy file opener (configurable version)
 A cross-shell file picker with smart application selection
 """
 
@@ -26,11 +26,11 @@ class FopenConfig:
         # Try XDG_CONFIG_HOME first
         config_home = os.environ.get('XDG_CONFIG_HOME')
         if config_home:
-            return Path(config_home) / 'fopen' / 'config.json'
+            return Path(config_home) / 'fzzopen' / 'config.json'
         
         # Fallback to ~/.config
         home = Path.home()
-        return home / '.config' / 'fopen' / 'config.json'
+        return home / '.config' / 'fzzopen' / 'config.json'
     
     def _get_default_config(self):
         """Default configuration"""
@@ -97,11 +97,11 @@ class FopenConfig:
     def _apply_env_overrides(self, config):
         """Apply environment variable overrides"""
         env_mappings = {
-            'FOPEN_TEXT_EDITOR': ('applications', 'text_editors'),
-            'FOPEN_FILE_MANAGER': ('applications', 'file_managers'),
-            'FOPEN_IMAGE_VIEWER': ('applications', 'image_viewers'),
-            'FOPEN_PDF_VIEWER': ('applications', 'pdf_viewers'),
-            'FOPEN_FZF_HEIGHT': ('interface', 'fzf_height'),
+            'FZZOPEN_TEXT_EDITOR': ('applications', 'text_editors'),
+            'FZZOPEN_FILE_MANAGER': ('applications', 'file_managers'),
+            'FZZOPEN_IMAGE_VIEWER': ('applications', 'image_viewers'),
+            'FZZOPEN_PDF_VIEWER': ('applications', 'pdf_viewers'),
+            'FZZOPEN_FZF_HEIGHT': ('interface', 'fzf_height'),
         }
         
         for env_var, (section, key) in env_mappings.items():
@@ -114,7 +114,7 @@ class FopenConfig:
                 config[section][key] = value
         
         # Excluded directories
-        exclude_dirs = os.environ.get('FOPEN_EXCLUDE_DIRS')
+        exclude_dirs = os.environ.get('FZZOPEN_EXCLUDE_DIRS')
         if exclude_dirs:
             config['search']['excluded_dirs'] = exclude_dirs.split(':')
     

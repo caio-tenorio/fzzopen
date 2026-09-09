@@ -1,0 +1,38 @@
+# Example fzzopen configuration.
+#
+# Copy the parts you need to $XDG_CONFIG_HOME/fzzopen/config.toml
+# (defaults to ~/.config/fzzopen/config.toml). This file is not loaded
+# automatically; without any config file, fzzo behaves exactly as before.
+#
+# Only [[include]] and [[exclude]] array-of-tables are recognized, with the
+# scalar/array-of-strings keys documented below - this is a restricted
+# subset of TOML, hand-parsed by fzzo.fish without any extra dependency.
+#
+# `mime` accepts an exact MIME type, a "type/*" wildcard, or "*" for every
+# type. Folders are represented by the MIME type `inode/directory`.
+# Exclusions are always applied after inclusions, so they take priority.
+
+# Hide Vim for folders only (it still appears for text files).
+[[exclude]]
+mime = "inode/directory"
+app = "vim"
+
+# Hide LibreOffice Writer for every MIME type.
+[[exclude]]
+mime = "*"
+app = "libreoffice-writer"
+
+# Add Visual Studio Code for text files, JSON, and folders.
+[[include]]
+mime = ["text/*", "application/json", "inode/directory"]
+label = "Visual Studio Code"
+command = "code"
+
+# Add a custom application for all MIME types, with extra arguments and
+# running in the current terminal instead of detached as a GUI app.
+[[include]]
+mime = "*"
+label = "My Custom Tool"
+command = "my-tool"
+args = ["--flag", "--another-flag"]
+terminal = true

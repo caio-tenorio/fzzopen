@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fopen - Fuzzy file opener
+fzzopen - Fuzzy file opener
 A cross-shell file picker with smart application selection
 """
 

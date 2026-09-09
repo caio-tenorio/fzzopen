@@ -1,11 +1,11 @@
-# Makefile to build fopen
+# Makefile to build fzzo
 
 PYTHON := python3
 VENV := venv
 PYINSTALLER := $(VENV)/bin/pyinstaller
 PIP := $(VENV)/bin/pip
-SOURCE := fopen_configurable.py
-BINARY_NAME := fzzopen
+SOURCE := fzzo_configurable.py
+BINARY_NAME := fzzo
 DIST_DIR := dist
 BUILD_DIR := build
 
