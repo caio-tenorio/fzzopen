@@ -1,6 +1,6 @@
-# Usage Example - fopen
+# Usage Example - fzzo
 
-This file demonstrates how to use the compiled `fopen`.
+This file demonstrates how to use the compiled `fzzo`.
 
 ## Quick Installation
 
@@ -20,10 +20,10 @@ make test
 ### Basic usage
 ```bash
 # Navigate and open files in current directory
-./dist/fopen
+./dist/fzzo
 
 # Include hidden files
-./dist/fopen -h
+./dist/fzzo -h
 ```
 
 ### Shell compatibility
@@ -31,40 +31,40 @@ make test
 #### In Fish Shell (original)
 ```fish
 # Original fish function
-fopen
+fzzo
 
 # Compiled binary
-./dist/fopen
+./dist/fzzo
 ```
 
 #### In Bash
 ```bash
 # Use the binary
-./dist/fopen
+./dist/fzzo
 
 # Useful alias
-alias fopen='/home/caio/fopen/dist/fopen'
+alias fzzo='/home/caio/fzzopen/dist/fzzo'
 ```
 
 #### In Zsh
 ```zsh
 # Use the binary
-./dist/fopen
+./dist/fzzo
 
 # Add to .zshrc
-echo 'alias fopen="/home/caio/dist/fopen"' >> ~/.zshrc
+echo 'alias fzzo="/home/caio/dist/fzzo"' >> ~/.zshrc
 ```
 
 #### In Shell Script (sh)
 ```sh
 #!/bin/sh
 # Use in scripts
-/home/caio/dist/fopen
+/home/caio/dist/fzzo
 ```
 
 ## Workflow
 
-1. **Run fopen**: `./dist/fopen`
+1. **Run fzzo**: `./dist/fzzo`
 2. **Navigate**: Use arrow keys or type to filter
 3. **Toggle hidden files**: Alt+h (show) / Alt+H (hide)
 4. **Select**: Press Enter on desired file

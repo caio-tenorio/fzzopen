@@ -1,13 +1,13 @@
-> **Status: abandoned.** This approach tried to make `fopen` a standalone
+> **Status: abandoned.** This approach tried to make `fzzo` a standalone
 > cross-shell binary via PyInstaller. It was dropped because a compiled
 > binary runs as a subprocess and can never change the parent shell's
 > working directory — the `cd` option only ever worked through printing a
 > command for the caller to `eval`, or by spawning a whole new terminal
 > window as a workaround. The active implementation is
-> [`../fish/fopen.fish`](../fish/fopen.fish), which runs natively in the
+> [`../fish/fzzo.fish`](../fish/fzzo.fish), which runs natively in the
 > shell process. Kept here for reference.
 
-# fopen - Fuzzy File Opener
+# fzzopen - Fuzzy File Opener
 
 A smart file selector that works in any shell (sh, bash, fish, zsh, dash).
 
@@ -65,10 +65,10 @@ make test
 ### Option 2: Build script
 ```bash
 # Make executable
-chmod +x build_fopen.sh
+chmod +x build_fzzo.sh
 
 # Build
-./build_fopen.sh
+./build_fzzo.sh
 ```
 
 ### Option 3: Manual
@@ -77,9 +77,9 @@ chmod +x build_fopen.sh
 pip install pyinstaller
 
 # Build
-pyinstaller --onefile --name fopen --console --strip --optimize 2 fopen.py
+pyinstaller --onefile --name fzzo --console --strip --optimize 2 fzzo.py
 
-# Binary will be in dist/fopen
+# Binary will be in dist/fzzo
 ```
 
 ## Installation
@@ -88,10 +88,10 @@ After building, you can install the binary:
 
 ```bash
 # System-wide (requires sudo)
-sudo cp dist/fopen /usr/local/bin/
+sudo cp dist/fzzo /usr/local/bin/
 
 # Current user
-cp dist/fopen ~/.local/bin/
+cp dist/fzzo ~/.local/bin/
 ```
 
 Make sure the directory is in your PATH.
@@ -100,15 +100,15 @@ Make sure the directory is in your PATH.
 
 ```bash
 # Normal search (without hidden files)
-fopen
+fzzo
 
 # Search including hidden files
-fopen -h
+fzzo -h
 # or
-fopen --hidden
+fzzo --hidden
 
 # Help
-fopen --help
+fzzo --help
 ```
 
 ### fzf controls:
@@ -146,8 +146,8 @@ fopen --help
 
 ```
 .
-├── fopen.py           # Python source code
-├── build_fopen.sh     # Build script
+├── fzzo.py           # Python source code
+├── build_fzzo.sh     # Build script
 ├── Makefile          # Makefile for automation
 └── README.md         # This documentation
 ```
@@ -166,7 +166,7 @@ pip install pyinstaller
 ```
 
 ### Binary doesn't execute
-- Check if it has execution permission: `chmod +x dist/fopen`
+- Check if it has execution permission: `chmod +x dist/fzzo`
 - Check if it's in PATH: `echo $PATH`
 
 ### Preview doesn't work

@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Script para testar o fopen em diferentes shells
+# Script para testar o fzzo em diferentes shells
 
 set -e
 
-FOPEN_PATH="/home/caio/dist/fopen"
+FZZOPEN_PATH="/home/caio/dist/fzzo"
 
-echo "🧪 Testando fopen em diferentes shells..."
-echo "📁 Binário: $FOPEN_PATH ($(du -h "$FOPEN_PATH" | cut -f1))"
+echo "🧪 Testando fzzo em diferentes shells..."
+echo "📁 Binário: $FZZOPEN_PATH ($(du -h "$FZZOPEN_PATH" | cut -f1))"
 echo ""
 
 # Verifica se o binário existe
-if [ ! -f "$FOPEN_PATH" ]; then
-    echo "❌ Binário não encontrado: $FOPEN_PATH"
+if [ ! -f "$FZZOPEN_PATH" ]; then
+    echo "❌ Binário não encontrado: $FZZOPEN_PATH"
     exit 1
 fi
 
@@ -22,7 +22,7 @@ SHELLS=("sh" "bash" "dash" "zsh")
 for shell in "${SHELLS[@]}"; do
     if command -v "$shell" &> /dev/null; then
         echo -n "🐚 Testando $shell: "
-        if $shell -c "exec '$FOPEN_PATH' --help >/dev/null 2>&1"; then
+        if $shell -c "exec '$FZZOPEN_PATH' --help >/dev/null 2>&1"; then
             echo "✅ OK"
         else
             echo "❌ FALHOU"
@@ -60,4 +60,4 @@ echo "Python: $(python3 --version 2>/dev/null || echo "não encontrado")"
 
 echo ""
 echo "✨ Teste em um diretório com arquivos:"
-echo "Exemplo: cd /tmp && $FOPEN_PATH"
+echo "Exemplo: cd /tmp && $FZZOPEN_PATH"
