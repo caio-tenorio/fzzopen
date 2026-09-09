@@ -139,12 +139,42 @@ function _fallback_app_options --description 'List installed applications from a
         set -l label $fields[4]
 
         test "$app_group" = "$mime_group"; or continue
-        type -q "$app"; or continue
+        command -q "$app"; or continue
         contains -- "$app" $added_commands; and continue
 
         set -a added_commands "$app"
         echo "command:$mode:$app :: $label"
     end
+end
+
+function _fopen_app_options --description 'Merge MIME associations with installed catalog applications'
+    set -l options (_gio_app_options "$argv[1]")
+    set -l desktop_commands
+    for option in $options
+        set -l id (string split ' :: ' -- "$option")[1]
+        set -l desktop_file (_fopen_desktop_file (string replace 'desktop:' '' -- "$id"))
+        test -n "$desktop_file"; or continue
+        set -l tokens
+        _fopen_desktop_value "$desktop_file" Exec | read --tokenize --array tokens
+        test (count $tokens) -gt 0; or continue
+        # Common desktop entries use either an executable or env VAR=value executable.
+        if test (path basename -- "$tokens[1]") = env
+            set -e tokens[1]
+            while test (count $tokens) -gt 0
+                string match -qr '^[A-Za-z_][A-Za-z_0-9]*=' -- "$tokens[1]"; or break
+                set -e tokens[1]
+            end
+        end
+        test (count $tokens) -gt 0; or continue
+        set -a desktop_commands (path basename -- "$tokens[1]")
+    end
+    for option in (_fallback_app_options "$argv[1]")
+        set -l id (string split ' :: ' -- "$option")[1]
+        set -l app (string split : -- "$id")[3]
+        contains -- "$app" $desktop_commands; and continue
+        set -a options "$option"
+    end
+    printf '%s\n' $options
 end
 
 function _default_app_option --description 'Print the system-default opener option when available'
@@ -316,6 +346,8 @@ function fopen
 
     if test -d "$file"
         set -l directory_options 'cd :: Open in terminal'
+        command -q nvim; and set -a directory_options 'nvim :: Neovim'
+        command -q vim; and set -a directory_options 'vim :: Vim'
         type -q code; and set -a directory_options 'code :: Visual Studio Code'
         type -q nautilus; and set -a directory_options 'nautilus :: GTK File Manager'
 
@@ -323,6 +355,10 @@ function fopen
         switch $selected
             case cd
                 cd "$file"
+            case nvim
+                _open_file_with_option command:terminal:nvim "$file"
+            case vim
+                _open_file_with_option command:terminal:vim "$file"
             case code
                 _open_file_with_option command:gui:code "$PWD/$file"
             case nautilus
@@ -336,10 +372,7 @@ function fopen
 
     set -l mime_type (file --brief --mime-type -- "$file")
 
-    set -l app_options (_gio_app_options "$mime_type")
-    if test (count $app_options) -eq 0
-        set app_options (_fallback_app_options "$mime_type")
-    end
+    set -l app_options (_fopen_app_options "$mime_type")
 
     set -a app_options (_default_app_option)
 

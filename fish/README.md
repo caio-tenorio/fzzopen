@@ -23,9 +23,12 @@ cp fopen.fish ~/.config/fish/functions/fopen.fish
   with the MIME type by the system
 - `xdg-open` (optional) — enables the system default application option
 
-When `gio` or `gtk-launch` is unavailable, the function uses a small built-in
-catalog of common applications and only shows commands found in `PATH`.
-No manual configuration of this catalog is needed.
+The function supplements system MIME associations with a small built-in catalog
+of common applications, such as Visual Studio Code, Neovim, and VLC. Catalog
+entries appear only when their executable is found in `PATH` and matches the
+file type. Applications already represented by a desktop entry with the same
+executable name are omitted from the supplement. The catalog also works when
+`gio` or `gtk-launch` is unavailable. No manual configuration is needed.
 
 ## Usage
 

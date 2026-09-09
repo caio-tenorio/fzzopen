@@ -69,6 +69,23 @@ class OpenTests(unittest.TestCase):
         self.assertIn('shell-alive', result.stdout)
         self.assertEqual(self.log.read_text().splitlines()[-1], '/tmp/file with spaces.txt')
 
+    def test_catalog_supplements_associations_without_duplicate_executables(self):
+        self.stub('code', 'exit 0')
+        self.stub('nvim', 'exit 0')
+        self.desktop('neovim', 'Terminal=true\nExec=env EDITOR_MODE=1 /usr/bin/nvim %F\n')
+        self.stub('gio', 'echo "Default application for text/plain: neovim.desktop"')
+        result = subprocess.run(['fish', '--no-config', '-c',
+            'source "$argv[1]"; _fopen_app_options text/plain', str(SOURCE)],
+            env=self.env, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('desktop:neovim.desktop :: Test (default)', result.stdout)
+        self.assertIn('command:gui:code :: Visual Studio Code', result.stdout)
+        self.assertNotIn('command:terminal:nvim', result.stdout)
+        result = subprocess.run(['fish', '--no-config', '-c',
+            'source "$argv[1]"; _fallback_app_options image/png', str(SOURCE)],
+            env=self.env, capture_output=True, text=True)
+        self.assertNotIn('command:gui:code', result.stdout)
+
     def test_terminal_fallback(self):
         result = self.run_option('command:terminal:editor')
         self.assertEqual(result.returncode, 0, result.stderr)
