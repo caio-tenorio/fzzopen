@@ -6,7 +6,7 @@ import tempfile
 import time
 import unittest
 
-SOURCE = Path(__file__).with_name('fzzo.fish').resolve()
+SOURCE = Path(__file__).resolve().parents[1] / 'functions' / 'fzzo.fish'
 
 
 class OpenTests(unittest.TestCase):
@@ -66,6 +66,22 @@ class OpenTests(unittest.TestCase):
             'set result $status; echo shell-alive; exit $result',
             str(SOURCE), option, '/tmp/file with spaces.txt', keep_shell],
             env=self.env, capture_output=True, text=True)
+
+    def test_autoload_changes_directory_in_current_shell(self):
+        target = self.root / 'selected directory'
+        target.mkdir()
+        self.env['SELECTED_DIRECTORY'] = str(target)
+        self.stub('fzf', 'cat > /dev/null\n'
+                  'case "$1" in\n'
+                  '  --read0) printf "%s\\n" "$SELECTED_DIRECTORY" ;;\n'
+                  '  *) printf "cd :: Open in terminal\\n" ;;\n'
+                  'esac')
+        result = subprocess.run(['fish', '--no-config', '-c',
+            'set -p fish_function_path "$argv[1]"; fzzo -k; pwd',
+            str(SOURCE.parent)], cwd=self.root, env=self.env,
+            capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), str(target))
 
     def test_terminal_preserves_shell_and_arguments(self):
         result = self.run_option('desktop:terminal.desktop')
